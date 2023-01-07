@@ -1,0 +1,65 @@
+{% extends 'accounts/main.html' %}
+{% block content %}
+    {% include 'accounts/status.html' %}
+    <br>
+    <div class="row">
+        <div class="col-md-5">
+            <h5>CURRENT POSITIONS:</h5>
+            <hr>
+            <div class="card card-body">
+                <a class="btn btn-primary btn-sm btn-block" href="{% url 'trade' user.id %}">Create a Trade</a>
+                <table class="table table-sm">
+                    <tr>
+                        <th>Symbol</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Shares</th>
+                        <th>Position</th>
+                        <th>Buy</th>
+                        <th>Sell</th>
+                    </tr>
+                    {% for position in positions %}
+                        <tr>
+                            <td>{{ position.symbol }}</td>
+                            <td>{{ position.name }}</td>
+                            <td>{{ position.price }}</td>
+                            <td>{{ position.shares }}</td>
+                            {% if position.shares < 0 %}
+                                <td>Short</td>
+                            {% else %}
+                                <td>Long</td>
+                            {% endif %}
+                            <td><a class="btn btn-sm btn-info" href="{% url 'buy' user.id position.symbol %}">Buy</a></td>
+                            <td><a class="btn btn-sm btn-danger" href="{% url 'sell' user.id position.symbol %}">Sell</a></td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <h5>LAST 5 TRADES</h5>
+            <hr>
+            <div class="card card-body">
+                <a class="btn btn-primary btn-sm btn-block" href="{% url 'trade_history' user.id %}">View History</a>
+                <table class="table table-sm">
+                    <tr>
+                        <th>Symbol</th>
+                        <th>Price</th>
+                        <th>Shares</th>
+                        <th>Order Type</th>
+                        <th>Time Executed</th>
+                    </tr>
+                    {% for trade in trades %}
+                        <tr>
+                            <td>{{ trade.symbol }}</td>
+                            <td>{{ trade.price }}</td>
+                            <td>{{ trade.shares }}</td>
+                            <td>{{ trade.order_type }}</td>
+                            <td>{{ trade.date_created }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

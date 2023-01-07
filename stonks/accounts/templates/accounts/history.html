@@ -1,0 +1,29 @@
+{% extends 'accounts/main.html' %}
+{% block content %}
+    <div class="row">
+        <div class="col">
+            <h5>Trade History</h5>
+            <hr>
+            <div class="card card-body">
+                <table>
+                    <tr>
+                        <th>Symbol</th>
+                        <th>Price</th>
+                        <th>Shares</th>
+                        <th>Order Type</th>
+                        <th>Time Executed</th>
+                    </tr>
+                    {% for trade in trades %}
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

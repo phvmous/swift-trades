@@ -1,0 +1,31 @@
+{% extends 'accounts/main.html' %}
+{% load static %}
+{% block content %}
+<br>
+<div class="row">
+    <div class="col">
+        <div class="card card-body align-items-center">
+            <h2>Buy Order</h2>
+            <div id="trade">
+                <form action="javascript:void(0)" onsubmit="getQuote(this)">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="{{ form.symbol.id_for_label }}" class="form-label">Enter a symbol:</label>
+                        {{ form.symbol }}
+                    </div>
+                    <div class="mb-3 text-center">
+                        <button type="submit" class="btn btn-primary">Get Quote</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block javascript %}
+<script>
+    const url = "{% url 'get_quote' %}";
+    const postUrl = "{% url 'trade' user.id %}"
+</script>
+<script src="{% static '/js/main.js' %}"></script>
+{% endblock %}
